@@ -28,30 +28,30 @@ function init(keywords) {
     lastTime = 0;
     msgCount = 0;
 
-	var isOurs = false;
+    var isOurs = false;
 
-	for (var i = 0; i < keywords.length; i++) {
-		var word = keywords[i];
+    for (var i = 0; i < keywords.length; i++) {
+        var word = keywords[i];
 
-		if (word.startsWith("tchat-")) {
-			isOurs = true;
+        if (word.startsWith("tchat-")) {
+            isOurs = true;
             vodId = word.replace("tchat-", "");
             break;
         }
 
-	}
+    }
 
-    console.log({isOurs, vodId});
+    console.log({ isOurs, vodId });
     loaded = true;
-	
+
     if (!isOurs) {
         cleanUp();
 
         return;
     }
 
-	player = document.getElementsByClassName("video-stream")[0];
-	player.ontimeupdate = onTimeUpdate;
+    player = document.getElementsByClassName("video-stream")[0];
+    player.ontimeupdate = onTimeUpdate;
 
     downloadChat();
 
@@ -127,7 +127,7 @@ color: black;
 }
 
 function onTimeUpdate() {
-	var time = player.currentTime;
+    var time = player.currentTime;
 
     var j = 0;
 
@@ -154,7 +154,7 @@ function onTimeUpdate() {
     lastTime = player.currentTime;
 }
 
-function intToRGB(i){
+function intToRGB(i) {
     var c = (i & 0x00FFFFFF)
         .toString(16)
         .toUpperCase();
@@ -165,7 +165,7 @@ function intToRGB(i){
 function userColor(str) { // java String#hashCode
     var hash = 0;
     for (var i = 0; i < str.length; i++) {
-       hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
     return intToRGB(hash);
 }
@@ -175,11 +175,11 @@ function addMessage(msg) {
 
     var scrollBottom = (elem.scrollHeight <= elem.scrollTop + elem.offsetHeight + 20);
 
-    $("#twitch-chat").append(`<div class="twitch-msg" style="background-color: ${(chatcolor == 1 ? 'var(--yt-spec-feed-background-c)' : 'var(--yt-spec-feed-background-b)')}"><span class="twitch-user" style="color: ${(msg.user_color ? msg.user_color : "#"+userColor(msg.display_name))};">${msg.display_name}:</span> ${msg.body}</div>`);
+    $("#twitch-chat").append(`<div class="twitch-msg" style="background-color: ${(chatcolor == 1 ? 'var(--yt-spec-feed-background-c)' : 'var(--yt-spec-feed-background-b)')}"><span class="twitch-user" style="color: ${(msg.user_color ? msg.user_color : "#" + userColor(msg.display_name))};">${msg.display_name}:</span> ${msg.body}</div>`);
 
-    if (chatcolor == 1){
+    if (chatcolor == 1) {
         chatcolor = 0;
-    }else{
+    } else {
         chatcolor = 1;
     }
 
@@ -195,21 +195,21 @@ function addMessage(msg) {
 }
 
 function downloadChat() {
-    $.get(`https://twitchchat.poespas.me/${vodId}`, function( data ) {
+    $.get(`https://twitchchat.poespas.me/${vodId}`, function (data) {
         twitch_messages = data;
         $('#twitch-chat').html(`<div class="twitch-msg" style="text-align: center;">Downloaded + Loaded Archived Twitch Chat.</div>`);
-    }).fail(function() {
+    }).fail(function () {
         $('#twitch-chat').html(`<div class="twitch-msg" style="text-align: center;">Failed getting chat history!</div>`);
     });
 }
 
-function GM_addStyle (cssStr) {
-    var D               = document;
-    var newNode         = D.createElement ('style');
+function GM_addStyle(cssStr) {
+    var D = document;
+    var newNode = D.createElement('style');
     newNode.textContent = cssStr;
 
-    var targ    = D.getElementsByTagName ('head')[0] || D.body || D.documentElement;
-    targ.appendChild (newNode);
+    var targ = D.getElementsByTagName('head')[0] || D.body || D.documentElement;
+    targ.appendChild(newNode);
 }
 
 function cleanUp() {
@@ -224,14 +224,14 @@ function cleanUp() {
 
 function start() {
     console.log("start");
-    console.log({pathname: location.pathname});
+    console.log({ pathname: location.pathname });
 
     cleanUp();
 
     if (location.pathname != "/watch")
         return;
 
-    $.get( location.href, function( data ) {
+    $.get(location.href, function (data) {
         if (!data.includes("ytplayer.config = "))
             return start();
 
