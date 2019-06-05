@@ -56,74 +56,76 @@ function init(keywords) {
     downloadChat();
 
     document.getElementById("donation-shelf").innerHTML = `<style>
-#twitch-chat::-webkit-scrollbar-track
-{
-    background-color: var(--yt-spec-feed-background-c);
-    border-left: 1px solid var(--yt-spec-feed-background-a);
-    border-right: 1px solid var(--yt-spec-feed-background-a);
-}
+		#twitch-chat::-webkit-scrollbar-track
+		{
+		    background-color: var(--yt-spec-feed-background-c);
+		    border-left: 1px solid var(--yt-spec-feed-background-a);
+		    border-right: 1px solid var(--yt-spec-feed-background-a);
+		}
 
-#twitch-chat::-webkit-scrollbar
-{
-    width: 6px;
-    background-color: var(--yt-spec-feed-background-c);
-}
+		#twitch-chat::-webkit-scrollbar
+		{
+		    width: 6px;
+		    background-color: var(--yt-spec-feed-background-c);
+		}
 
-#twitch-chat::-webkit-scrollbar-thumb
-{
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: var(--yt-spec-text-secondary);
-}
-.tc-title {
-	color: var(--yt-spec-text-primary);
-	font-size: 1.6rem;
-	font-weight: 400;
-	line-height: 2rem;
-	-ms-flex: 1 1 0.000000001px;
-	-webkit-flex: 1;
-	flex: 1;
-    text-align: center;
-	-webkit-flex-basis: 0.000000001px;
-	flex-basis: 0.000000001px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--yt-spec-10-percent-layer);
-}
-#twitch-shelf {
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--yt-spec-10-percent-layer);
-    margin-bottom:  20px;
-}
-#twitch-chat {
-    background-color: var(--yt-spec-feed-background-c);
-    color: var(--yt-live-chat-primary-text-color, var(--yt-primary-text-color));
-    height: 500px;
-    width: 100%;
-    margin-bottom: 10px;
-    overflow-y: scroll;
-    padding: 5px 0;
-    font-size: 12px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-#twitch-msg {
-    padding: 2px 5px;
-    min-height: 18px;
-    line-height: 18px;
-}
-</style><div id="twitch-shelf" class="style-scope ytd-watch-flexy">
-	<h2 class="tc-title">Twitch Chat</h2>
-	<div id="twitch-chat">
-        <div class="twitch-msg" style="text-align: center;">Downloading Twitch Chat..</div>
-    </div>
-</div>`;
+		#twitch-chat::-webkit-scrollbar-thumb
+		{
+		    border-radius: 10px;
+		    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+		    background-color: var(--yt-spec-text-secondary);
+		}
+		.tc-title {
+		color: var(--yt-spec-text-primary);
+		    font-size: 1.6rem;
+		    font-weight: 400;
+		    line-height: 2rem;
+		    -ms-flex: 1 1 0.000000001px;
+		    -webkit-flex: 1;
+		    flex: 1;
+		    text-align: center;
+		    -webkit-flex-basis: 0.000000001px;
+		    flex-basis: 0.000000001px;
+		    padding-bottom: 4px;
+		    border-bottom: 1px solid var(--yt-spec-10-percent-layer);
+		}
+		#twitch-shelf {
+		    padding-bottom: 8px;
+		    border-bottom: 1px solid var(--yt-spec-10-percent-layer);
+		    margin-bottom:  20px;
+		}
+		#twitch-chat {
+		    background-color: var(--yt-spec-feed-background-c);
+		    color: var(--yt-live-chat-primary-text-color, var(--yt-primary-text-color));
+		    height: 500px;
+		    width: 100%;
+		    margin-bottom: 10px;
+		    overflow-y: scroll;
+		    padding: 5px 0;
+		    font-size: 12px;
+		    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
+		#twitch-msg {
+		    padding: 2px 5px;
+		    min-height: 18px;
+		    line-height: 18px;
+		}
+                .twitch-msg img { 
+                    vertical-align: middle;
+                    height: 100%; 
+                }
 
-    GM_addStyle(`.twitch-msg img { vertical-align: middle;
-    height: 100%; }
-
-.twitch-user {
-font-weight: 500;
-color: black;
-}`);
+                .twitch-user {
+                    font-weight: 500;
+                    color: black;
+                }
+	</style>
+	<div id="twitch-shelf" class="style-scope ytd-watch-flexy">
+	    <h2 class="tc-title">Twitch Chat</h2>
+	    <div id="twitch-chat">
+	    	<div class="twitch-msg" style="text-align: center;">Downloading Twitch Chat..</div>
+            </div>
+        </div>`;
 }
 
 function onTimeUpdate() {
