@@ -6,8 +6,8 @@
 // @author       SpiderDead, Poespas
 // @match        https://*.youtube.com/*
 // @require      https://twitchchat.poespas.me/jquery.min.js
-// @updateURL    https://twitchchat.poespas.me/ChatArchive.meta.js
-// @downloadURL  https://twitchchat.poespas.me/ChatArchive.user.js
+// @updateURL    https://github.com/poespas/TwitchChatArchive/raw/master/ChatArchive.user.js
+// @downloadURL  https://github.com/poespas/TwitchChatArchive/raw/master/ChatArchive.user.js
 // ==/UserScript==
 
 var loaded = false;
