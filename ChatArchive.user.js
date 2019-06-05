@@ -105,7 +105,7 @@ function init(keywords) {
 		    font-size: 12px;
 		    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		}
-		#twitch-msg {
+		.twitch-msg {
 		    padding: 2px 5px;
 		    min-height: 18px;
 		    line-height: 18px;
