@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Archive twitch chat
 // @namespace    http://poespas.me
-// @version      0.3.1
+// @version      0.3.2
 // @description  Get the twitch chat with the archived twitch vid.
 // @author       SpiderDead, Poespas
 // @match        https://*.youtube.com/*
