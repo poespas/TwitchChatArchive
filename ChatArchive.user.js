@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Archive twitch chat
 // @namespace    http://poespas.me
-// @version      0.3.2
+// @version      0.4.0
 // @description  Get the twitch chat with the archived twitch vid.
 // @author       SpiderDead, Poespas
 // @match        https://*.youtube.com/*
@@ -10,17 +10,15 @@
 // @downloadURL  https://github.com/poespas/TwitchChatArchive/raw/master/ChatArchive.user.js
 // ==/UserScript==
 
-var loaded = false;
+let loaded = false;
 
-var player;
-var vodId;
+let player;
+let vodId;
+let twitch_messages = [];
 
-var twitch_messages = [];
-var lastTime = 0;
-
-var msgCount = 0;
-
-var chatcolor = 0;
+let lastTime = 0;
+let msgCount = 0;
+let chatcolor = 0;
 
 function init(keywords) {
     twitch_messages = [];
@@ -31,7 +29,7 @@ function init(keywords) {
     var isOurs = false;
 
     for (var i = 0; i < keywords.length; i++) {
-        var word = keywords[i];
+        let word = keywords[i];
 
         if (word.startsWith("tchat-")) {
             isOurs = true;
@@ -110,15 +108,15 @@ function init(keywords) {
 		    min-height: 18px;
 		    line-height: 18px;
 		}
-                .twitch-msg img { 
-                    vertical-align: middle;
-                    height: 100%; 
-                }
+        .twitch-msg img { 
+            vertical-align: middle;
+            height: 100%; 
+        }
 
-                .twitch-user {
-                    font-weight: 500;
-                    color: black;
-                }
+        .twitch-user {
+            font-weight: 500;
+            color: black;
+        }
 	</style>
 	<div id="twitch-shelf" class="style-scope ytd-watch-flexy">
 	    <h2 class="tc-title">Twitch Chat</h2>
@@ -129,9 +127,7 @@ function init(keywords) {
 }
 
 function onTimeUpdate() {
-    var time = player.currentTime;
-
-    var j = 0;
+    let time = player.currentTime;
 
     if (lastTime + 10 < time || time + 10 < lastTime) {
         //fast forward, need to remove all, and reset
@@ -139,25 +135,21 @@ function onTimeUpdate() {
         document.getElementById("twitch-chat").innerHTML = "";
     }
 
-
     for (var i = 0; i < twitch_messages.length; i++) {
         let msg = twitch_messages[i];
 
         if (msg.offset_seconds >= lastTime && msg.offset_seconds <= player.currentTime) {
-            //console.log("["+msg.user_color+"] " + msg.display_name + " > " + msg.body);
             addMessage(msg);
         }
         if (msg.offset_seconds > player.currentTime) {
             break;
         }
     }
-
-
     lastTime = player.currentTime;
 }
 
 function intToRGB(i) {
-    var c = (i & 0x00FFFFFF)
+    const c = (i & 0x00FFFFFF)
         .toString(16)
         .toUpperCase();
 
@@ -165,7 +157,7 @@ function intToRGB(i) {
 }
 
 function userColor(str) { // java String#hashCode
-    var hash = 0;
+    let hash = 0;
     for (var i = 0; i < str.length; i++) {
         hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
@@ -173,9 +165,9 @@ function userColor(str) { // java String#hashCode
 }
 
 function addMessage(msg) {
-    var elem = document.getElementById('twitch-chat');
+    const elem = document.getElementById('twitch-chat');
 
-    var scrollBottom = (elem.scrollHeight <= elem.scrollTop + elem.offsetHeight + 20);
+    const scrollBottom = (elem.scrollHeight <= elem.scrollTop + elem.offsetHeight + 20);
 
     $("#twitch-chat").append(`<div class="twitch-msg" style="background-color: ${(chatcolor == 1 ? 'var(--yt-spec-feed-background-c)' : 'var(--yt-spec-feed-background-b)')}"><span class="twitch-user" style="color: ${(msg.user_color ? msg.user_color : "#" + userColor(msg.display_name))};">${msg.display_name}:</span> ${msg.body}</div>`);
 
@@ -205,17 +197,8 @@ function downloadChat() {
     });
 }
 
-function GM_addStyle(cssStr) {
-    var D = document;
-    var newNode = D.createElement('style');
-    newNode.textContent = cssStr;
-
-    var targ = D.getElementsByTagName('head')[0] || D.body || D.documentElement;
-    targ.appendChild(newNode);
-}
-
 function cleanUp() {
-    var element = document.getElementById("twitch-shelf");
+    const element = document.getElementById("twitch-shelf");
 
     if (player && player.ontimeupdate)
         player.ontimeupdate = () => { };
@@ -237,8 +220,7 @@ function start() {
         if (!data.includes("ytplayer.config = "))
             return start();
 
-        var ytplayer = /ytplayer\.config = (\{.*\:\{.*\:.*\}\});/gm.exec(data);
-        //console.log({ytplayer})
+        const ytplayer = /ytplayer\.config = (\{.*\:\{.*\:.*\}\});/gm.exec(data);
 
         if (!ytplayer)
             return start();
@@ -246,12 +228,10 @@ function start() {
         unsafeWindow.ytplayer = JSON.parse(ytplayer[1]);
         unsafeWindow.player_response = JSON.parse(unsafeWindow.ytplayer.args.player_response);
 
-        var keywords = unsafeWindow.player_response.videoDetails.keywords;
+        const keywords = unsafeWindow.player_response.videoDetails.keywords;
 
         if (!keywords)
             return;
-
-        //console.log(keywords);
 
         init(keywords);
     });
