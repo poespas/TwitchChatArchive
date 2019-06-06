@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Archive twitch chat
 // @namespace    http://poespas.me
-// @version      0.4.0
+// @version      0.4.1
 // @description  Get the twitch chat with the archived twitch vid.
 // @author       SpiderDead, Poespas
 // @match        https://*.youtube.com/*
@@ -11,6 +11,7 @@
 // ==/UserScript==
 
 let loaded = false;
+let version = "0.4.1";
 
 let player;
 let vodId;
@@ -108,14 +109,18 @@ function init(keywords) {
 		    min-height: 18px;
 		    line-height: 18px;
 		}
-        .twitch-msg img { 
+        .twitch-msg img {
             vertical-align: middle;
-            height: 100%; 
+            height: 100%;
         }
 
         .twitch-user {
             font-weight: 500;
             color: black;
+        }
+        .credits {
+            color: var(--yt-spec-text-secondary);
+            margin-bottom: 25px;
         }
 	</style>
 	<div id="twitch-shelf" class="style-scope ytd-watch-flexy">
@@ -123,6 +128,7 @@ function init(keywords) {
 	    <div id="twitch-chat">
 	    	<div class="twitch-msg" style="text-align: center;">Downloading Twitch Chat..</div>
             </div>
+            <div class="credits"><p style="float: left;">Archive Twitch Chat v${version}</p><p style="float: right;">Made by <a href="https://poespas.me/" style="text-decoration: none; color: var(--yt-spec-text-secondary);">Poespas#6322</a> and SpiderDead#8177</p></div>
         </div>`;
 }
 
