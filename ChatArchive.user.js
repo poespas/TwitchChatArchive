@@ -5,7 +5,7 @@
 // @description  Get the twitch chat with the archived twitch vid.
 // @author       SpiderDead, Poespas
 // @match        https://*.youtube.com/*
-// @require      https://twitchchat.poespas.me/jquery.min.js
+// @require      https://code.jquery.com/jquery-3.4.1.min.js
 // @updateURL    https://github.com/poespas/TwitchChatArchive/raw/master/ChatArchive.user.js
 // @downloadURL  https://github.com/poespas/TwitchChatArchive/raw/master/ChatArchive.user.js
 // ==/UserScript==
